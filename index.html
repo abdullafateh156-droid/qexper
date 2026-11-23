@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="az">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>UFC LEGENDS — MMA Career Simulator</title>
+<link rel="stylesheet" href="css/style-01.css">
+<link rel="stylesheet" href="css/style-02.css">
+<link rel="stylesheet" href="css/style-03.css">
+<link rel="stylesheet" href="css/addon-creator-music.css">
+<link rel="stylesheet" href="css/live-fight.css">
+</head>
+<body>
+<div id="scroller">
+<header><div class="brand"><div class="logo">UFC</div><h1>LEGENDS</h1></div><div class="tools"><button id="rotateBtn" class="ib" aria-pressed="false" aria-label="Ekranı çevir (üfüqi / şaquli)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="2.5" width="8" height="13" rx="1.6"/><path d="M4 14.5a8 8 0 0 0 8 6.5 8 8 0 0 0 7.5-5"/><path d="M19.5 21v-5h-5"/></svg><span>Çevir</span></button><button id="musicToggle" class="ib">♫ OFF</button><button id="settingsOpen" class="ib" aria-label="Ayarlar">⚙️</button></div><div class="chips"><span class="pill" id="weekPill">HƏFTƏ 1</span><span class="pill" id="energyPill">⚡ Enerji 100/100</span></div></header>
+<main>
+<section id="career" class="page"><div class="grid">
+   <div class="card span12 hero-card"><h3>🥇 Sənin döyüşçün</h3><div class="fighter"><div class="avatar">🥊</div><div><div class="fightername" id="fighterName">Fateh “The Storm”</div><div class="muted" id="fighterMeta">Lightweight • Azərbaycan • Amatör</div><div class="pills" style="margin-top:7px"><span class="pill" id="recordPill">0-0-0</span><span class="pill" id="rankPill">Amatör liqa</span><span class="pill" id="beltPill">Kəmər yoxdur</span></div></div></div><div class="grid" style="margin-top:18px"><div class="span6"><div class="muted">Reytinq xalı</div><div class="big gold" id="rating">68</div></div><div class="span6"><div class="muted">Pul kisəsi</div><div class="big" id="cash">$25,000</div></div></div><div id="injuryBanner" translate="no"></div><div id="mainStats"></div></div>
+   <div class="card span12"><h3>🎯 Növbəti hədəf</h3><div class="grid"><div class="span8"><div class="big" id="goalTitle">İlk peşəkar qələbəni qazan</div><p class="muted" id="goalText">Döyüş gecəsinə keç və rəqibə qarşı simulyasiyanı başlat.</p></div><div class="span4"><button class="primary" style="width:100%" data-goto="fight">Döyüşə hazırlaş →</button></div></div></div>
+<div class="card span12"><h3>📅 Bu həftə</h3><p class="muted" id="weekInfo">Həftə 1: məşq et, döyüş təklifini yoxla və irəlilə.</p><p class="muted" id="calendarInfo">Növbəti tədbirin tarixi burada göstərilir.</p><div class="pills" style="margin:8px 0 12px"><span class="pill" id="eventNumberPill">AMATEUR SERIES</span><span class="pill" id="nextEventPill">Növbəti tədbir: planlaşdırılır</span></div><button id="nextWeek" class="primary" style="width:100%">Növbəti həftəyə keç →</button></div>
+   <details class="card span12 fold"><summary>📝 Döyüşçü profili və görünüş</summary><label>Döyüşçünün adı</label><input id="nameInput" maxlength="24" value="Fateh"><label>Ləqəb</label><input id="nickInput" maxlength="20" value="The Storm"><label>Ölkə</label><select id="countryInput"><option>ABŞ</option><option>Braziliya</option><option>Yaponiya</option><option>İtaliya</option><option>Polşa</option><option>Gürcüstan</option><option>Türkiyə</option><option>İrlandiya</option><option>Rusiya</option><option>Fransa</option><option>Azərbaycan</option></select><label>Çəki dərəcəsi</label><select id="weightInput"><option>Flyweight</option><option>Bantamweight</option><option>Featherweight</option><option selected>Lightweight</option><option>Welterweight</option><option>Middleweight</option><option>Light Heavyweight</option><option>Heavyweight</option></select><label id="heightLabel" translate="no">Boy (sm)</label><select id="heightInput" translate="no"></select><div class="profile-photo-card" style="margin-top:12px"><b>🥊 Öz döyüşçünü yarat</b><p class="muted" style="font-size:12px;margin:5px 0 8px">Görünüşü dəyiş — eyni üz bütün bölmələrdə qalacaq.</p><div class="formgrid">
+<div><label>Dəri rəngi</label><select id="lookSkin"><option value="#f0c9a5">Açıq</option><option value="#e7b995">Açıq buğda</option><option value="#c98e68" selected>Buğda</option><option value="#b87958">Qəhvəyi</option><option value="#986448">Tünd</option></select></div>
+<div><label>Göz rəngi</label><select id="lookEye"><option value="#17191f">Qara</option><option value="#3b2418" selected>Qəhvəyi</option><option value="#315d88">Mavi</option><option value="#47734c">Yaşıl</option><option value="#777c80">Boz</option></select></div>
+<div><label>Saç rəngi</label><select id="lookHair"><option value="#17171b" selected>Qara</option><option value="#38251d">Tünd qəhvəyi</option><option value="#5a4435">Qəhvəyi</option><option value="#252b35">Tünd boz</option><option value="#b7a17c">Açıq</option></select></div>
+<div><label>Saç stili</label><select id="lookHairStyle"><option value="0">Qısa</option><option value="1">Sıx</option><option value="2">Dalğalı</option><option value="3">Yanları qısa</option></select></div>
+<div><label>Qaş forması</label><select id="lookBrow"><option value="0">Normal</option><option value="1">Qalın</option><option value="2">İncə</option></select></div>
+<div><label>Qulaq forması</label><select id="lookEar"><option value="0">Normal</option><option value="1">Qabarıq / güləşçi qulağı</option></select></div>
+<div><label>Saqqal</label><select id="lookBeard"><option value="0">Təmiz üz</option><option value="1" selected>Tam saqqal</option></select></div>
+</div><button type="button" id="takeFighterPhoto" style="width:100%;margin-top:8px">📸 Öz şəklini də yüklə (istəyə görə)</button><input id="fighterCameraInput" type="file" accept="image/*" style="display:none"><img id="fighterPhotoPreview" alt="Profil şəkli" style="display:none;width:88px;height:88px;object-fit:cover;border-radius:12px;margin-top:10px;border:1px solid #46516a"></div><button class="primary" style="width:100%;margin-top:13px" id="saveProfile">Profili yadda saxla</button></details>
+</div></section>
+<section id="fight" class="page hidden">
+<div class="grid">
+   <div class="card span12"><h3 id="fightHeading">🔥 Fight Night — əsas döyüş</h3><div class="matchup"><div><div class="avatar" style="margin:auto">🥊</div><div class="fightername" id="myFightName">Fateh</div><div class="muted" id="myFightRecord">0-0-0</div></div><div class="vs">VS</div><div><div class="avatar" style="margin:auto">🦂</div><div class="fightername" id="oppName">Alex “Viper” Cruz</div><div class="muted" id="oppRecord">8-2-0</div></div></div><div class="result"><div class="grid"><div class="span6"><span class="muted">Sənin ümumi gücün</span><div class="big" id="myPower">68</div></div><div class="span6"><span class="muted">Rəqibin gücü</span><div class="big" id="oppPower">67</div></div></div><p class="muted" id="fightPreview">Rəqib səviyyənə yaxındır. Yaxşı hazırlıq vacibdir.</p></div><label>Döyüş strategiyası</label><select id="strategy"><option value="balanced">Balanslı — hər sahədə sabit</option><option value="striker">Striker — ayaqüstü döyüş</option><option value="wrestler">Güləşçi — nəzarət və yerüstü üstünlük</option><option value="counter">Kontratak — səbir və dəqiqlik</option><option value="pressure">Təzyiq — yüksək temp</option></select><div class="grid" style="margin-top:12px">
+   <div class="span6"><button id="acceptFight" class="primary" style="width:100%">Döyüşü qəbul et</button></div>
+   <div class="span6"><button id="declineFight" style="width:100%">Döyüşdən imtina et</button></div>
+  </div>
+  
+  <div class="muted" id="offerStatus" style="font-size:12px;margin-top:8px">Əvvəlcə döyüş təklifini qəbul et.</div><p class="muted" style="font-size:12px">Nəticə döyüşçü göstəriciləri, strategiya, dözümlülük və təsadüfi hadisələr əsasında hesablanır.</p></div>
+   <div class="card span12"><h3>🥊 Canlı döyüş animasiyası</h3><div id="fightAnimation" class="fight-arena"><button class="primary arena-start-button" id="startFight" disabled>BAŞLA</button><div class="arena-top"><span>UFC FIGHT NIGHT</span><span id="arenaRound">GÖZLƏYİR</span></div><div class="arena-fighters"><div class="arena-person" id="arenaMe"><div class="arena-face"></div><span class="glove">🥊</span><span id="arenaMeName">SƏN</span></div><div class="arena-vs">VS</div><div class="arena-person" id="arenaOpp"><div class="arena-face"></div><span class="glove">🥊</span><span id="arenaOppName">RƏQİB</span></div></div><div class="arena-status" id="arenaStatus">Döyüşə başlamaq üçün düyməyə bas!</div><div class="arena-meter"><i id="arenaProgress"></i></div></div></div><div class="card span5"><h3>📋 Döyüş nəticəsi</h3><div id="fightResult" class="muted">Hələ döyüş keçirilməyib. Döyüşü başlat və raundların gedişatını izlə.</div></div>
+<details class="card span12 fold"><summary>🎙️ Döyüşün gedişatı</summary><div class="log" id="fightLog"><p class="muted">Döyüş başlayanda hadisələr burada görünəcək.</p></div></details>
+<details class="card span12 fold"><summary>🎙️ Mətbuat konfransı</summary><p class="muted">Döyüşdən əvvəl üz-üzə söhbət: fərqli jurnalist sualları, trash-talk, rəqib mübahisələri və bəzən Dana White-ın çıxışı.</p><div id="conferenceText" class="result">Konfransı başlat düyməsinə bas.</div><button id="conferenceBtn" style="margin-top:10px">🎤 Konfransı başlat</button></details>
+<details class="card span12 fold"><summary>📺 Döyüş gecəsinin kartı</summary><p class="muted" id="eventMeta">Növbəti tədbir üçün döyüş cütlükləri</p><div id="eventCard"></div></details>
+</div>
+</section>
+ <section id="gym" class="page hidden">
+  <div class="grid"><div class="card span7"><h3>🏋️ Məşq zalı</h3><p class="muted">Hər upgrade +1 göstərici verir və 8 enerji xərcləyir. Enerji hər həftə +30 bərpa olur.</p><div class="grid"><div class="span6"><div class="muted">Enerji</div><div class="big" id="gymEnergy">100/100</div></div><div class="span6"><div class="muted">Upgrade qiyməti</div><div class="big" id="upgradePrice">$1,000</div></div></div><div id="trainingOptions"></div></div><div class="card span5"><h3>📈 İnkişaf</h3><div id="gymStats"></div><p class="notice" style="margin-top:12px">Döyüşə çıxmaq üçün ən az 60 enerji lazımdır. Enerji azdırsa, döyüşçün özü döyüşü rədd edir — istirahət et (növbəti həftəyə keç).</p><p class="muted" style="font-size:12px">Məşq etdikcə gücün artır. Həddən artıq məşq etməmək üçün enerjini idarə et.</p></div></div>
+ </section>
+ <section id="sponsors" class="page hidden">
+  <div class="card"><h3>🤝 Sponsorlar</h3><div id="sponsorBox"></div></div>
+ </section>
+ <section id="rank" class="page hidden">
+  <div class="card"><h3>🏆 Lightweight reytinqi</h3><p class="muted">Əvvəl həvəskar turnirlərdən başla, regional liqada təcrübə qazan, sonra peşəkar reytinqə daxil ol.</p><div id="rankingTable"></div></div>
+ </section>
+ <section id="records" class="page hidden">
+  <div class="grid"><div class="card span6"><h3>📊 Karyera statistikası</h3><div id="recordStats"></div></div><div class="card span6"><h3>📜 Son döyüşlər</h3><div id="history"></div></div><div class="card span12"><h3>🏅 Nailiyyətlər və mükafatlar</h3><div id="awards"></div></div><div class="card span12"><h3>ℹ️ Oyun qaydaları</h3><div class="notice">Bu, real idmançılarla əlaqəsi olmayan, uydurma döyüşçülərdən və sadələşdirilmiş idman simulyasiyasından istifadə edən fan-made menecer oyunudur.</div><ul class="muted"><li>Qələbə reytinqini və pul mükafatını artırır.</li><li>Məğlubiyyət reytinqə mənfi təsir edir, amma karyera bitmir.</li><li>Amatördə upgrade $1,000, Regionalda $2,500, UFC-də $4,000-dir. Hər upgrade +1 göstərici verir. Hər upgrade 8 enerji xərcləyir.</li><li>Əvvəl Amatör və 4 amatör qələbə və 6 regional qələbə qazan, sonra UFC reytinqinə daxil ol.</li></ul></div></div>
+ </section>
+ <footer>UFC LEGENDS • Fan-made MMA career simulator • Progress avtomatik olaraq bu brauzerdə saxlanılır.</footer>
+</main>
+</div>
+<nav id="tabs"><button class="tab active" data-tab="career"><i>🏠</i><span>Karyera</span></button><button class="tab" data-tab="fight"><i>🥊</i><span>Döyüş</span></button><button class="tab" data-tab="gym"><i>🏋️</i><span>Zal</span></button><button class="tab" data-tab="sponsors"><i>🤝</i><span>Sponsor</span></button><button class="tab" data-tab="rank"><i>🏆</i><span>Reytinq</span></button><button class="tab" data-tab="records"><i>📊</i><span>Rekord</span></button></nav>
+<div id="settingsPanel" class="settings-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+ <div class="settings-box">
+  <div class="settings-head"><h2 id="settingsTitle">⚙️ Oyun ayarları</h2><button id="settingsClose" aria-label="Bağla">✕</button></div>
+  <label for="musicVolume">🎵 Musiqinin səsi <b id="musicVolumeValue">100%</b></label><input id="musicVolume" type="range" min="0" max="100" value="100">
+  <label for="difficulty">🥊 Çətinlik səviyyəsi</label><select id="difficulty"><option value="easy">Asan</option><option value="normal" selected>Çətin</option><option value="hard">Çox çətin</option><option value="legend">Əfsanəvi</option></select>
+  <label for="fightSpeed">⏱️ Döyüş animasiyasının sürəti</label><select id="fightSpeed"><option value="slow">Yavaş</option><option value="normal" selected>Normal</option><option value="fast">Sürətli</option></select>
+  <label for="trashTalkRate">🎤 Sərt trash-talk tezliyi</label><select id="trashTalkRate"><option value="low">Az</option><option value="medium" selected>Orta</option><option value="high">Bir az tez-tez</option></select>
+  <div class="settings-note">Süni portretlər uydurma döyüşçülər üçündür. Real döyüşçülərdə mövcud foto istifadə olunur.</div>
+  <button id="finishCareer" class="danger-button">🏁 Karyeranı bitir</button>
+  <button id="resetCareer" class="danger-button">↻ Karyeranı sıfırla</button>
+   <button id="settingsDone" class="primary" style="width:100%;margin-top:9px">Bağla</button>
+ </div>
+</div>
+<div id="titleScreen" translate="no">
+ <div class="ts-art" role="img" aria-label="UFC Career"></div>
+ <div class="ts-menu">
+  <button class="ts-btn main" id="tsNew">Yeni Kariyer Oluştur <b>›</b></button>
+  <button class="ts-btn alt" id="tsOld">Eski Kariyere Dön <b>›</b></button>
+  <div class="ts-row">
+   <button class="ts-mini" id="tsSet"><span>⚙</span>Ayarlar</button>
+   <button class="ts-mini" id="tsMus"><span>♫</span><i id="tsMusT" style="font-style:normal">Müzik</i></button>
+   <button class="ts-mini" id="tsAbout"><span>ⓘ</span>Hakkında</button>
+  </div>
+  <div class="ts-logo">UFC</div>
+ </div>
+ <div class="ts-note" id="tsNote"></div>
+</div>
+<div id="aboutBox" class="hidden" translate="no"><div class="ab"><h2>UFC CAREER — MMA Life Simulator</h2><p>Fan-made MMA karyera simulyatoru. Real idmançılarla rəsmi əlaqəsi yoxdur. Progress avtomatik olaraq bu brauzerdə saxlanılır.</p><button class="primary" id="aboutClose" style="width:100%">Bağla</button></div></div>
+<div id="startChoice"><div class="choicebox"><h2>🥊 Karyeraya haradan başlamaq istəyirsən?</h2><p>Realist inkişaf üçün amatör yolu seç, ya da UFC 334 kartında peşəkar debüt et.</p><button class="choicebtn primary" id="chooseAmateur">Amatör karyera — sıfırdan başla</button><button class="choicebtn" id="chooseUfc">UFC 334 — Main Card debütü</button></div></div>
+<div id="cine"></div>
+<div id="sitd"></div>
+<script src="js/01-game-core.js"></script>
+<script src="js/02-monthly-rewards.js"></script>
+<script src="js/03-win-probability.js"></script>
+<script src="js/04-fullscreen-cinema.js"></script>
+<script src="js/05-career-life-extras.js"></script>
+<script src="js/06-header-settings-language.js"></script>
+<script src="js/07-offline-translations.js"></script>
+<script src="js/08-confirm-dialog.js"></script>
+<script src="js/09-hidden-opponent.js"></script>
+<script src="js/10-energy-gate.js"></script>
+<script src="js/11-hidden-opponent-v2.js"></script>
+<script src="js/12-contract-signing-and-i18n.js"></script>
+
+<script src="js/13-rotate-landscape-mode.js"></script>
+<script src="js/14-title-screen.js"></script>
+<script src="js/15-new-career-creator.js"></script>
+<script src="js/16-music-player.js"></script>
+<script src="js/17-live-fight.js"></script>
+</body>
+</html>
